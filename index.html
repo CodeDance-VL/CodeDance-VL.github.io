@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="description"
+          content="Deformable Neural Radiance Fields creates free-viewpoint portraits (nerfies) from casually captured videos.">
+    <meta name="keywords" content="Nerfies, D-NeRF, NeRF">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+          dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-PYVRSFMDRL');
+    </script>
+
+    <title>CodeDance: A Dynamic Tool-integrated MLLM for Executable Visual Reasoning</title>
+    <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+    <link rel="stylesheet" href="static/css/bulma.min.css">
+    <link rel="stylesheet" href="static/css/academicons.min.css">
+    <link rel="stylesheet" href="static/css/index.css">
+    <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
+    <link href="static/css/bootstrap.min.css" rel="stylesheet">
+    <script src="static/js/bootstrap.bundle.min.js" defer></script>
+    
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          displayMath: [['$$', '$$'], ['\\[', '\\]']],
+          processEscapes: true
+        },
+        svg: {
+          fontCache: 'global'
+        }
+      };
+    </script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+
+
+<link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+      rel="stylesheet">
+
+<link rel="stylesheet" href="./static/css/bulma.min.css">
+
+<link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+<link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+<link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+<link rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+<link rel="stylesheet" href="./static/css/index.css">
+<link rel="icon" href="./static/images/20251218-logo.png">
+
+</head>
+<body>
+
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+
+  </div>
+</nav>
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title"><span class="has-text-danger has-text-weight-semibold">CodeDance</span>: A Dynamic Tool-integrated MLLM for Executable Visual Reasoning</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://openreview.net/profile?id=~Qi_Song9">Qi Song</a><sup>1,4&clubs;</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://openreview.net/profile?id=%7EHonglin_Li2">Honglin Li</a><sup>2,4&clubs;</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://yingchen001.github.io/">Yingchen Yu</a><sup>3</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://www.zhouhaoyi.com/">Haoyi Zhou</a><sup>1</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://openreview.net/profile?id=~Lin_Yang13">Lin Yang</a><sup>2</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://songbai.site/">Song Bai</a><sup>3</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://qi-she.net/">Qi She</a><sup>4</sup>
+            </span>
+            <br>
+            <span class="author-block">
+              <a href="https://speedinghzl.github.io/">Zilong Huang</a><sup>3&#9824;</sup>
+            </span>
+            <span class="author-block">
+              <a href="https://yunqing-me.github.io/">Yunqing Zhao</a><sup>3&#9824;</sup>
+            </span>
+          </div><br>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>Beihang University</span>&nbsp;&nbsp;
+            <span class="author-block"><sup>2</sup>Westlake University</span>&nbsp;&nbsp;
+            <span class="author-block"><sup>3</sup>ByteDance Singapore</span>&nbsp;&nbsp;
+            <span class="author-block"><sup>4</sup>ByteDance China</span>
+            <br>
+            <span class="author-block"><sup>&clubs;</sup>Equal Contribution</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span class="author-block"><sup>&#9824;</sup>Corresponding Authors</span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href="https://arxiv.org/abs/2303.10137"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="https://github.com/yunqing-me/WatermarkDM"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+              <!-- Dataset Link. -->
+              <span class="link-block">
+                  <a href="#" target="_blank" class="external-link button is-normal is-rounded is-dark">
+                      <span class="icon"><i class="fas fa-database"></i></span>
+                      <span>Datasets</span>
+                  </a>
+              </span>
+              <!-- Models Link. -->
+              <span class="link-block">
+                  <a href="#" target="_blank" class="external-link button is-normal is-rounded is-dark">
+                      <span class="icon"><i class="fas fa-cubes"></i></span>
+                      <span>Models</span>
+                  </a>
+              </span>
+              <!-- Demo Link. -->
+              <span class="link-block">
+                  <a href="https://huggingface.co/spaces/TIGER-Lab/Pixel-Reasoner" target="_blank" class="external-link button is-normal is-rounded is-dark">
+                      <span class="icon"><i class="fas fa-play-circle"></i></span>
+                      <span>Demo</span>
+                  </a>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-2" >Abstract</h2>
+        <div class="content has-text-justified">
+          <p>&#10077; We introduce <span class="has-text-danger has-text-weight-semibold">CodeDance</span>, a <span class="has-text-info has-text-weight-semibold">dynamic tool-integrated multimodal large language model</span> that treats executable code as a general solver for visual reasoning. Instead of relying on rigid, text-only pipelines, CodeDance plans, composes, and executes visual–symbolic operations while rendering intermediate artifacts, enabling a transparent, <span class="has-text-info has-text-weight-semibold">self-checkable reasoning process</span>.</p>
+          <p><span class="has-text-danger has-text-weight-semibold">CodeDance</span> scales up multimodal tool-based reasoning by letting the model <span class="has-text-info has-text-weight-semibold">think, write code, execute it, and reflect</span> in a single loop. Rather than following fixed schemas, CodeDance dynamically decides when and how to invoke tools, orchestrates visual-symbolic operations (crop, draw, count, plot) in a sandbox, and uses intermediate visual evidence to guide subsequent reasoning over <span class="has-text-info has-text-weight-semibold">multiple interaction turns</span>.</p>
+          <p>Our design choice yields <span class="has-text-info has-text-weight-semibold">transparent, self-checkable solutions</span> to challenging visual search and reasoning tasks and offers a practical recipe for “thinking with images” via executable code and reinforcement learning.</p>
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-10">
+        <h2 class="title is-3 has-text-centered">&#10064; Overview and Training Receipes</h2>
+        <div class="content has-text-justified">
+          <p><span class="has-text-danger has-text-weight-semibold">CodeDance</span> is a <span class="has-text-info has-text-weight-semibold"> dynamic tool-integrated MLLM</span> that leverages <span class="has-text-info has-text-weight-semibold">executable code</span> as a general solver for visual reasoning, enabling a transparent, <span class="has-text-info has-text-weight-semibold">self-checkable reasoning process</span>.
+        </div>
+        <img src="./static/images/method-1.png" alt="methodology"/><br>
+      </div>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-10">
+        <div class="content has-text-justified">
+        <p><b>Our training / inference pipeline consists of three stages:</b></p>
+        <ul>
+          <li><strong><span class="has-text-danger has-text-weight-semibold">Stage 1: Cold-start via Supervised Fine-tuning.</span></strong> We construct a <span class="has-text-weight-semibold">34k high-quality</span> dataset of <em>executable</em> multi-turn trajectories to initialize the model before RL.
+            <ul>
+              <li><span class="has-text-info has-text-weight-semibold">Weak-to-strong filtering.</span> Aggregate public datasets (e.g., SA1B, GEOqa_plus, MMK12) and apply automatic filtering. We employ a weak model (Qwen2.5-VL-7B) to prune trivial cases, while a strong model further stratifies the remaining samples into medium and hard difficulty levels.</li>
+              <li><span class="has-text-info has-text-weight-semibold">Multi-turn atomic supervision.</span> We decompose hard cases into <span class="has-text-weight-semibold">verifiable executable trajectories</span> across three atomic categories:
+                <ul>
+                  <li><span class="has-text-weight-semibold">Predefined visual operations.</span> Annotated via predefined workflows to ensure reproducibility and scalability. Visual outputs (e.g., cropped views) serve as evidence for stepwise reasoning.</li>
+                  <li><span class="has-text-weight-semibold">Mathematical computation.</span> <span class="has-text-weight-semibold">Measurement, algebra, aggregation</span> executed via Python/NumPy/SymPy with <span class="has-text-weight-semibold">error filtering</span>. A <span class="has-text-weight-semibold">Reasoning Model</span> first produces chain-of-thought, which is segmented into a multi-step procedure; complex computational steps within the procedure are then translated into <span class="has-text-weight-semibold">executable code</span>.</li>
+                  <li><span class="has-text-weight-semibold">Open-ended operations.</span> The model can execute <span class="has-text-weight-semibold">arbitrarily complex code</span> that helps solve the task (e.g., drawing, annotation), enabling flexible and task-adaptive tool use.</li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li><strong><span class="has-text-danger has-text-weight-semibold">Stage 2: Reinforcement Learning.</span></strong>
+            <div class="content has-text-justified">
+              <p>
+                We optimize with a <span class="has-text-info has-text-weight-semibold">composite reward</span> that integrates outcome and tool signals. Our <span class="has-text-info has-text-weight-semibold">two-level reward (Balanced Adaptive Tool-call)</span>, denoted as \( R_{\mathrm{BAT}} \), balances task difficulty with step-wise tool-call correctness:
+              </p>
+              \[
+                R_{\mathrm{BAT}} = R_{\mathrm{seq}} + R_{\mathrm{turn}}.
+              \]
+              <ul>
+                <li>
+                  <p>
+                    <span class="has-text-danger has-text-weight-semibold">Sequence-level.</span> Difficulty-aware incentives adapt to group accuracy to <span class="has-text-weight-semibold">discourage redundant calls</span> on easy problems and <span class="has-text-weight-semibold">promote exploration</span> on hard ones. Formally:
+                  </p>
+                  <p>
+                    Here, \(N_{\mathrm{succ}}(\tau)\) and \(N_{\mathrm{total}}(\tau)\) denote successful and total tool calls in trajectory \(\tau\). The difficulty factor \(d\) shrinks when the group accuracy \(\mu_{\mathrm{acc}}\) is high (easy queries) and grows when \(\mu_{\mathrm{acc}}\) is low (hard queries), suppressing redundant tool invocations on easy cases while amplifying rewards for helpful tool use on challenging ones.
+                  </p>
+                  \[
+                    R_{\mathrm{seq}} =
+                    \Big(0.5 + 0.5 \cdot \mathbb{I}_{R_{\mathrm{acc}}(\tau) > 0}\Big)
+                    \cdot d \cdot \frac{N_{\mathrm{succ}}(\tau)}{N_{\mathrm{total}}(\tau)},
+                    \quad
+                  \]
+                  where 
+                  \[
+                    d = \sigma\!\big(\gamma (0.5 - \mu_{\mathrm{acc}})\big) - \delta,
+                    \quad
+                    \sigma(z) = \frac{1}{1 + e^{-z}}.
+                  \]
+                </li>
+                <li>
+                  <p>
+                    <span class="has-text-danger has-text-weight-semibold">Turn-level.</span> Immediate penalties for failed executions plus a batch-normalized advantage to provide dense correction. For each turn \(m\), failed code execution incurs an immediate penalty \(r_{\mathrm{turn},m} = -0.5\) (otherwise \(0\)). To capture long-term effects, we define the accumulated discounted return and advantage as:
+                  </p>
+                  \[
+                    G_{\mathrm{turn}}^{m} = r_{\mathrm{turn}}^{m} + \beta \cdot G_{\mathrm{turn}}^{m+1}, \qquad
+                    A_{\mathrm{turn}}^{m} = \frac{G_{\mathrm{turn}}^{m} - \mu_{\mathrm{batch}}}{\sigma_{\mathrm{batch}}}.
+                  \]
+                  <p>
+                    This turn-level signal assigns credit to correct intermediate tool executions, discouraging reward hacking where the final answer is correct but tool use is erroneous.
+                  </p>
+                  <p>
+                    The final advantage combines sequence- and turn-level signals:
+                  </p>
+                  \[
+                    A(\tau) = A_{\mathrm{seq}}\!\big(R_{\mathrm{acc}}, R_{\mathrm{format}}, R_{\mathrm{seq}}\big) + A_{\mathrm{turn}}\!\big(G_{\mathrm{turn}}\big).
+                  \]
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li>
+            <strong><span class="has-text-danger has-text-weight-semibold">Stage 3: Test-Time Extend and Scaling.</span></strong> Without task-specific fine-tuning, CodeDance exhibits <span class="has-text-info has-text-weight-semibold">emergent capabilities</span> beyond supervised primitives: <span class="has-text-weight-semibold">novel tool invocations</span>, <span class="has-text-weight-semibold">unseen tool compositions</span>, and <span class="has-text-weight-semibold">cross-task transfer</span>, demonstrating strong generalization at inference.
+            We additionally validate the <span class="has-text-danger has-text-weight-semibold">potential of scalability</span> after observing the empirial novel reasoning trajecories incentivized during RL.
+          </li>
+        </ul>
+      </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-10">
+        <h2 class="title is-3 has-text-centered">&#9835; Dynamic visual tool-calling</h2>
+        <div class="content has-text-justified">
+          <p><span class="has-text-danger has-text-weight-semibold">CodeDance</span> dynamically invokes tools <span class="has-text-info has-text-weight-semibold">according to task difficulty</span> to prevent both <span class="has-text-danger has-text-weight-semibold">tool underuse</span> (unable to invoke tools on challenging tasks) and <span class="has-text-danger has-text-weight-semibold">tool overuse</span> (redundant calls on easy tasks).
+        </div>
+        <img src="./static/images/teaser1_page-0001.jpg" alt="CodeDance teaser" style="display: block; margin: 0 auto; max-width: 100%; height: auto;" /><br>
+        <table align=center width=775px>
+            <tr>
+              <td>
+                <p style="text-align:justify; text-justify:inter-ideograph;"> 
+                  <b>Motivation and effectiveness of dynamic tool invocation in CodeDance.</b> 
+                  <b>Left:</b> qualitative examples show that both tool underuse (unable to invoke tools on challenging tasks) and tool overuse (redundant calls on easy tasks) lead to hallucinated reasoning, incorrect answers, and unnecessary complexity (more reasoning turns and longer rollout time), whereas CodeDance dynamically invokes tools according to task difficulty to obtain correct solutions.
+                  <b>Right:</b> quantitative results show CodeDance-7B consistently surpasses all Qwen2.5-VL 7B baselines and <span class="has-text-danger has-text-weight-semibold">exceeds the 32B version</span> on several tasks.
+              </td>
+            </tr>
+          </center>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-10">
+        <h2 class="title is-3 has-text-centered">Synthesis of <span class="has-text-danger has-text-weight-semibold">tool-integrated visual</span> trajecories</h2>
+        <div class="content has-text-justified">
+          <p>
+            To initialize CodeDance before RL, we curate a high-quality cold-start dataset of executable multimodal trajectories. Following the pipeline described in our methodology and appendix, we apply weak-to-strong filtering to stratify difficulty and then build multi-turn atomic supervision.
+            <br>
+            <span class="has-text-danger has-text-weight-semibold">Left:</span> An example of our reasoning trajectory synthesis.
+            <br>
+            <span class="has-text-info has-text-weight-semibold">Right:</span> (scroll to the right) An example of resulting curated reasoning trajectory.
+          </p>
+        </div>
+        <div class="image-scroll-container">
+          <img src="./static/images/data-syn.png" alt="dataset_pipeline" />
+          <img src="./static/images/data-image.png" alt="dataset_showcase" />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-10">
+        <h2 class="title is-3 has-text-centered">Main Experiments</h2>
+        <div class="content has-text-justified">
+          <p>We conduct systematic evaluations across visual search, math, counting, and chart understanding benchmarks. CodeDance consistently outperforms text-only and schema-driven baselines and, in several settings, surpasses larger open-source and advanced closed-source models.</p>
+
+          <div class="table-container">
+              <table class="table is-striped is-hoverable is-fullwidth">
+                  <thead>
+                    <tr>
+                      <b>Experiment results on benchmarks including Counting, Visual Search, and General datasets.</b>
+                      <th rowspan="2" style="vertical-align: middle;">Model&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                      <th colspan="2" class="has-text-centered">Visual Counting</th>
+                      <th colspan="3" class="has-text-centered">Visual Search</th>
+                      <th colspan="2" class="has-text-centered">General</th>
+                    </tr>
+                    <tr>
+                      <th>CountBenchQA</th>
+                      <th>PixmoCount</th>
+                      <th>V*Bench</th>
+                      <th>HR4K</th>
+                      <th>HR8K</th>
+                      <th>ChartQA</th>
+                      <th>CharXiv</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <!-- Closed-Source MLLMs -->
+                    <tr>
+                      <td colspan="8" class="has-text-centered has-text-weight-bold">Closed-Source MLLMs</td>
+                    </tr>
+                    <tr>
+                      <td>GPT-4o</td>
+                      <td>87.9</td>
+                      <td>-</td>
+                      <td>67.5</td>
+                      <td>65.0</td>
+                      <td>59.6</td>
+                      <td>86.7</td>
+                      <td>47.1</td>
+                    </tr>
+                    <!-- Open-Source MLLMs -->
+                    <tr>
+                      <td colspan="8" class="has-text-centered has-text-weight-bold">Open-Source MLLMs</td>
+                    </tr>
+                    <tr>
+                      <td>Llava-OneVision-7B</td>
+                      <td>82.3</td>
+                      <td>54.4</td>
+                      <td>72.7</td>
+                      <td>68.5</td>
+                      <td>60.0</td>
+                      <td>80.4</td>
+                      <td>27.1</td>
+                    </tr>
+                    <tr>
+                      <td>Llava-OneVision-72B</td>
+                      <td>-</td>
+                      <td>60.7</td>
+                      <td>73.8</td>
+                      <td>66.3</td>
+                      <td>60.9</td>
+                      <td>83.7</td>
+                      <td>-</td>
+                    </tr>
+                    <tr>
+                      <td>InternVL2.5-8B</td>
+                      <td>55.9</td>
+                      <td>-</td>
+                      <td>73.7</td>
+                      <td>72.0</td>
+                      <td>65.5</td>
+                      <td>82.8</td>
+                      <td>37.2</td>
+                    </tr>
+                    <tr>
+                      <td>InternVL3-8B</td>
+                      <td>80.3</td>
+                      <td>-</td>
+                      <td>70.2</td>
+                      <td>70.5</td>
+                      <td>70.0</td>
+                      <td>86.1</td>
+                      <td>38.3</td>
+                    </tr>
+                    <tr>
+                      <td>InternVL3-78B</td>
+                      <td>-</td>
+                      <td>-</td>
+                      <td>76.4</td>
+                      <td>75.5</td>
+                      <td>67.3</td>
+                      <td>89.7</td>
+                      <td>46.0</td>
+                    </tr>
+                    <tr>
+                      <td>Qwen2.5-VL-72B</td>
+                      <td>93.6</td>
+                      <td>62.3</td>
+                      <td>84.8</td>
+                      <td>79.4</td>
+                      <td>76.3</td>
+                      <td>89.5</td>
+                      <td>49.7</td>
+                    </tr>
+                    <tr>
+                      <td>Qwen2.5-VL-32B</td>
+                      <td>87.8</td>
+                      <td>56.0</td>
+                      <td>85.9</td>
+                      <td>74.8</td>
+                      <td>71.6</td>
+                      <td>-</td>
+                      <td>47.6</td>
+                    </tr>
+                    <tr>
+                      <td>Qwen2.5-VL-7B</td>
+                      <td>76.5</td>
+                      <td>50.4</td>
+                      <td>76.4</td>
+                      <td>69.0</td>
+                      <td>66.0</td>
+                      <td>86.3</td>
+                      <td>42.1</td>
+                    </tr>
+                    <!-- Open-Source MLLMs with Tools -->
+                    <tr>
+                      <td colspan="8" class="has-text-centered has-text-weight-bold">Open-Source MLLMs with Tools</td>
+                    </tr>
+                    <tr>
+                      <td>Pixel Reasoner-7B</td>
+                      <td>-</td>
+                      <td>-</td>
+                      <td>84.3</td>
+                      <td>72.9</td>
+                      <td>66.9</td>
+                      <td>-</td>
+                      <td>-</td>
+                    </tr>
+                    <tr>
+                      <td>Deepeyes-7B<sup>†</sup></td>
+                      <td>80.4</td>
+                      <td>57.2</td>
+                      <td>90.4</td>
+                      <td>74.8</td>
+                      <td>71.9</td>
+                      <td>78.2</td>
+                      <td>-</td>
+                    </tr>
+                    <tr>
+                      <td>Thyme-VL-7B</td>
+                      <td>84.8<sup>†</sup></td>
+                      <td>-</td>
+                      <td>82.2</td>
+                      <td>77.0</td>
+                      <td>72.0</td>
+                      <td>86.1</td>
+                      <td>44.2<sup>†</sup></td>
+                    </tr>
+                    <!-- Ours -->
+                    <tr class="has-background-light" style="border-top: 2px solid #dbdbdb;">
+                      <td>CodeDance-7B</td>
+                      <td>91.2</td>
+                      <td>77.1</td>
+                      <td>84.8</td>
+                      <td>75.2</td>
+                      <td>72.3</td>
+                      <td>87.5</td>
+                      <td>44.1</td>
+                    </tr>
+                    <tr class="has-background-light">
+                      <td><i>Δ v.s. Qwen2.5-VL-7B</i></td>
+                      <td class="has-text-success has-text-weight-bold">↑19.2%</td>
+                      <td class="has-text-success has-text-weight-bold">↑53.0%</td>
+                      <td class="has-text-success has-text-weight-bold">↑11.0%</td>
+                      <td class="has-text-success has-text-weight-bold">↑9.0%</td>
+                      <td class="has-text-success has-text-weight-bold">↑9.5%</td>
+                      <td class="has-text-success has-text-weight-bold">↑1.4%</td>
+                      <td class="has-text-success has-text-weight-bold">↑4.7%</td>
+                    </tr>
+                  </tbody>
+                </table>
+          </div>
+                <br>
+                <br>
+          <div class="table-container">
+            <table class="table is-striped is-hoverable is-fullwidth">
+              <thead>
+                <tr>
+                  <th>Model</th>
+                  <th>MathVision</th>
+                  <th>MathVista</th>
+                  <th>MathVerse</th>
+                  <th>WeMath</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <b>Experiment results on math benchmarks.</b>
+                  <td>GPT-4o</td>
+                  <td>36.5</td>
+                  <td>63.4</td>
+                  <td>35.3</td>
+                  <td>44.2</td>
+                </tr>
+                <tr>
+                  <td>Qwen2.5-VL-72B</td>
+                  <td>38.1</td>
+                  <td>74.8</td>
+                  <td>57.6</td>
+                  <td>-</td>
+                </tr>
+                <tr>
+                  <td>R1-OneVision-7B<sup>†</sup></td>
+                  <td>29.9</td>
+                  <td>64.1</td>
+                  <td>40.0</td>
+                  <td>-</td>
+                </tr>
+                <tr>
+                  <td>R1-VL-7B<sup>†</sup></td>
+                  <td>24.7</td>
+                  <td>63.5</td>
+                  <td>40.0</td>
+                  <td>-</td>
+                </tr>
+                <tr>
+                  <td>InternVL2.5-8B</td>
+                  <td>22.0</td>
+                  <td>64.4</td>
+                  <td>39.5</td>
+                  <td>23.9</td>
+                </tr>
+                <tr>
+                  <td>LLaVA-OV-7B</td>
+                  <td>18.4</td>
+                  <td>63.2</td>
+                  <td>26.2</td>
+                  <td>17.3</td>
+                </tr>
+                <tr>
+                  <td>Qwen2.5-VL-7B</td>
+                  <td>25.0</td>
+                  <td>68.1</td>
+                  <td>45.1</td>
+                  <td>35.4</td>
+                </tr>
+                <tr>
+                  <td>DeepEyes-7B</td>
+                  <td>26.6</td>
+                  <td>70.1</td>
+                  <td>47.3</td>
+                  <td>38.9</td>
+                </tr>
+                <tr class="has-background-light">
+                  <td>CodeDance-7B (Ours)</td>
+                  <td>29.6</td>
+                  <td>70.3</td>
+                  <td>46.8</td>
+                  <td>39.6</td>
+                </tr>
+              </tbody>
+            </table>
+                <br>
+          </div>
+
+          <div class="table-container" style="margin-top: 1rem;">
+            <table class="table is-striped is-hoverable is-fullwidth">
+              <thead>
+                <tr>
+                  <b>Experiment results on reward design.</b>
+                  <th>Components</th>
+                  <th>CountBench<br><span class="is-size-7 has-text-weight-normal">Acc. / Turns</span></th>
+                  <th>PixmoCount<br><span class="is-size-7 has-text-weight-normal">Acc. / Turns</span></th>
+                  <th>MathVision<br><span class="is-size-7 has-text-weight-normal">Acc. / Turns</span></th>
+                  <th>MathVerse<br><span class="is-size-7 has-text-weight-normal">Acc. / Turns</span></th>
+                  <th>V*<br><span class="is-size-7 has-text-weight-normal">Acc. / Turns</span></th>
+                  <th>HR4K<br><span class="is-size-7 has-text-weight-normal">Acc. / Turns</span></th>
+                  <th>HR8K<br><span class="is-size-7 has-text-weight-normal">Acc. / Turns</span></th>
+                  <th>Avg.<br><span class="is-size-7 has-text-weight-normal">Acc. / Turns</span></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>SFT Cold-Start (w/o RL)</td>
+                  <td>85.3<br><span class="is-size-7">1.2749</span></td>
+                  <td>66.9<br><span class="is-size-7">1.3902</span></td>
+                  <td>23.0<br><span class="is-size-7">2.8388</span></td>
+                  <td>41.4<br><span class="is-size-7">2.1904</span></td>
+                  <td>82.7<br><span class="is-size-7">2.0052</span></td>
+                  <td>72.1<br><span class="is-size-7">1.1713</span></td>
+                  <td>67.1<br><span class="is-size-7">1.0875</span></td>
+                  <td>62.6<br><span class="is-size-7">1.7083</span></td>
+                </tr>
+                <tr>
+                  <td>RL with R<sub>acc</sub> + R<sub>format</sub></td>
+                  <td>88.4<br><span class="is-size-7">1.0200</span></td>
+                  <td>71.2<br><span class="is-size-7">1.0170</span></td>
+                  <td>26.0<br><span class="is-size-7">2.1086</span></td>
+                  <td><b>46.5</b><br><span class="is-size-7 has-text-success">1.9569</span></td>
+                  <td>82.7<br><span class="is-size-7 has-text-success">1.1728</span></td>
+                  <td>73.4<br><span class="is-size-7 has-text-success">1.0413</span></td>
+                  <td>69.0<br><span class="is-size-7 has-text-success">1.0375</span></td>
+                  <td>65.3<br><span class="is-size-7 has-text-success">1.3363</span></td>
+                </tr>
+                <tr>
+                  <td>+ R<sub>DeepEyes</sub></td>
+                  <td>85.1<br><span class="is-size-7 has-text-danger">2.5960</span></td>
+                  <td>64.4<br><span class="is-size-7 has-text-danger">2.5341</span></td>
+                  <td>25.2<br><span class="is-size-7 has-text-danger">3.2270</span></td>
+                  <td>44.0<br><span class="is-size-7 has-text-danger">2.5190</span></td>
+                  <td><b>83.3</b><br><span class="is-size-7 has-text-danger">2.0000</span></td>
+                  <td><b>74.6</b><br><span class="is-size-7 has-text-danger">2.0888</span></td>
+                  <td>68.4<br><span class="is-size-7 has-text-danger">2.0525</span></td>
+                  <td>63.6<br><span class="is-size-7 has-text-danger">2.4311</span></td>
+                </tr>
+                <tr class="has-background-light">
+                  <td>+ R<sub>BAT</sub> (Ours)</td>
+                  <td><b>89.0</b><br><span class="is-size-7 has-text-success">1.0000</span></td>
+                  <td><b>72.5</b><br><span class="is-size-7 has-text-success">1.0000</span></td>
+                  <td><b>27.0</b><br><span class="is-size-7 has-text-success">2.0461</span></td>
+                  <td>46.3<br><span class="is-size-7">2.1662</span></td>
+                  <td>82.7<br><span class="is-size-7">1.2094</span></td>
+                  <td>73.8<br><span class="is-size-7">1.2251</span></td>
+                  <td><b>69.4</b><br><span class="is-size-7">1.1950</span></td>
+                  <td><b>65.8</b><br><span class="is-size-7">1.4060</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+            <p class="is-size-7 has-text-grey">Note: † denotes results reported from official papers.</p>
+
+        </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-10">
+        <h2 class="title is-3 has-text-centered"><span class="has-text-danger has-text-weight-semibold">Key Findings: </span>Emergent Behaviors during RL</h2>
+        <div class="content has-text-justified">
+          <p>
+            Throughout the RL process, we consistently observe <span class="has-text-info has-text-weight-semibold">novel and surprising reasoning trajectories</span> (below) that <span class="has-text-danger has-text-weight-semibold">go beyond the atomic supervision</span> provided during SFT. 
+            These findings point toward the <span class="has-text-danger has-text-weight-semibold">scalability</span> of code as a general reasoning medium, and we empirically study the potential in our main paper.
+          </p>
+        </div>
+        
+        <img src="./static/images/emergent_behavior.jpg" alt="cold_start_dataset" />
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- BibTeX citation -->
+<section class="section" id="BibTeX">
+    <div class="container is-max-desktop content">
+        <h2 class="title">BibTex</h2>
+        If you find our work useful and inspiring to your research, please consider citing our work:
+        <pre><code>@article{Song2025codedance,
+              title={CodeDance: A Dynamic Tool-integrated MLLM for Executable Visual Reasoning},
+              author={Song, Qi and Li, Honglin and Yu, Yingchen and Zhou, Haoyi and Yang, Bai, Song and She, Qi and Huang, Zilong and Zhao Yunqing},
+              journal={arXiv preprint arXiv:2512.xxxxx},
+              year={2025}
+            }</code></pre>
+    </div>
+</section>
+
+
+<footer class="footer">
+  <div class="container">
+    <!-- <div class="content has-text-centered">
+      <a class="icon-link"
+         href="./static/videos/nerfies_paper.pdf">
+        <i class="fas fa-file-pdf"></i>
+      </a>
+      <a class="icon-link" href="https://github.com/keunhong" class="external-link" disabled>
+        <i class="fab fa-github"></i>
+      </a>
+    </div> -->
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This website is licensed under a <a rel="license"
+                                                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+          <p>
+            This project page is constructed using the wonderful template provided by <a
+            href="https://nerfies.github.io/">Nerfies</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
