@@ -109,13 +109,17 @@
             <span class="author-block">
               <a href="https://yunqing-me.github.io/">Yunqing Zhao</a><sup>3&#9824;</sup>
             </span>
-          </div><br>
-
+          </div>
+          <br>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><b>CVPR 2026 (Main Track), Denver</b>
+          </div>
+          <br>
           <div class="is-size-5 publication-authors">
             <span class="author-block"><sup>1</sup>Beihang University</span>&nbsp;&nbsp;
             <span class="author-block"><sup>2</sup>Westlake University</span>&nbsp;&nbsp;
-            <span class="author-block"><sup>3</sup>ByteDance Singapore</span>&nbsp;&nbsp;
-            <span class="author-block"><sup>4</sup>ByteDance China</span>
+            <span class="author-block"><sup>3</sup>ByteDance (SG)</span>&nbsp;&nbsp;
+            <span class="author-block"><sup>4</sup>ByteDance (CN)</span>
             <br>
             <span class="author-block"><sup>&clubs;</sup>Equal Contribution</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <span class="author-block"><sup>&#9824;</sup>Corresponding Authors</span>
@@ -185,11 +189,13 @@
     <!-- Abstract. -->
     <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
-        <h2 class="title is-2" >Abstract</h2>
+        <h2 class="title is-2" >&#182; Abstract</h2>
         <div class="content has-text-justified">
           <p>&#10077; We introduce <span class="has-text-danger has-text-weight-semibold">CodeDance</span>, a <span class="has-text-info has-text-weight-semibold">dynamic tool-integrated multimodal large language model</span> that treats executable code as a general solver for visual reasoning. Instead of relying on rigid, text-only pipelines, CodeDance plans, composes, and executes visual–symbolic operations while rendering intermediate artifacts, enabling a transparent, <span class="has-text-info has-text-weight-semibold">self-checkable reasoning process</span>.</p>
           <p><span class="has-text-danger has-text-weight-semibold">CodeDance</span> scales up multimodal tool-based reasoning by letting the model <span class="has-text-info has-text-weight-semibold">think, write code, execute it, and reflect</span> in a single loop. Rather than following fixed schemas, CodeDance dynamically decides when and how to invoke tools, orchestrates visual-symbolic operations (crop, draw, count, plot) in a sandbox, and uses intermediate visual evidence to guide subsequent reasoning over <span class="has-text-info has-text-weight-semibold">multiple interaction turns</span>.</p>
           <p>Our design choice yields <span class="has-text-info has-text-weight-semibold">transparent, self-checkable solutions</span> to challenging visual search and reasoning tasks and offers a practical recipe for “thinking with images” via executable code and reinforcement learning.</p>
+          <p><span class="has-text-danger has-text-weight-semibold">Importantly</span>, we answer the question: "<b>Do we always need tools for visual reasoning?</b>" Our work demonstrates that: <b>state-of-the-art MLLM reasoning performance does not necessarily require always-on tool use ability</b>.
+          In contrast, <span class="has-text-danger has-text-weight-semibold">the tool-integrated visual reasoning should be task-adaptive and difficulty-aware</span>. </p>
         </div>
       </div>
     </div>
@@ -197,11 +203,38 @@
   </div>
 </section>
 
+
 <section class="section">
   <div class="container is-max-desktop">
     <div class="columns is-centered">
       <div class="column is-10">
-        <h2 class="title is-3 has-text-centered">&#10064; Overview and Training Receipes</h2>
+        <h2 class="title is-3 has-text-centered">&#9835; Dynamic, <span class="has-text-danger has-text-weight-semibold">Difficulty-aware</span>, visual tool-calling</h2>
+        <div class="content has-text-justified">
+          <p><span class="has-text-danger has-text-weight-semibold">CodeDance</span> dynamically invokes tools <span class="has-text-info has-text-weight-semibold">according to task difficulty</span> to prevent both <span class="has-text-danger has-text-weight-semibold">tool underuse</span> (unable to invoke tools on challenging tasks) and <span class="has-text-danger has-text-weight-semibold">tool overuse</span> (redundant calls on easy tasks).
+        </div>
+        <img src="./static/images/teaser1_page-0001.jpg" alt="CodeDance teaser" style="display: block; margin: 0 auto; max-width: 100%; height: auto;" /><br>
+        <table align=center width=775px>
+            <tr>
+              <td>
+                <p style="text-align:justify; text-justify:inter-ideograph;"> 
+                  <b>Motivation and effectiveness of dynamic tool invocation in CodeDance.</b> 
+                  <b>Left:</b> qualitative examples show that both tool underuse (unable to invoke tools on challenging tasks) and tool overuse (redundant calls on easy tasks) lead to hallucinated reasoning, incorrect answers, and unnecessary complexity (more reasoning turns and longer rollout time), whereas CodeDance dynamically invokes tools according to task difficulty to obtain correct solutions.
+                  <b>Right:</b> quantitative results show CodeDance-7B consistently surpasses all Qwen2.5-VL-7B baselines and <span class="has-text-danger has-text-weight-semibold">exceeds the 32B version and GPT-4o</span> on several tasks.
+              </td>
+            </tr>
+          </center>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-10">
+        <h2 class="title is-3 has-text-centered">&#10064; Overview and Training Recipes</h2>
         <div class="content has-text-justified">
           <p><span class="has-text-danger has-text-weight-semibold">CodeDance</span> is a <span class="has-text-info has-text-weight-semibold"> dynamic tool-integrated MLLM</span> that leverages <span class="has-text-info has-text-weight-semibold">executable code</span> as a general solver for visual reasoning, enabling a transparent, <span class="has-text-info has-text-weight-semibold">self-checkable reasoning process</span>.
         </div>
@@ -213,7 +246,7 @@
         <div class="content has-text-justified">
         <p><b>Our training / inference pipeline consists of three stages:</b></p>
         <ul>
-          <li><strong><span class="has-text-danger has-text-weight-semibold">Stage 1: Cold-start via Supervised Fine-tuning.</span></strong> We construct a <span class="has-text-weight-semibold">34k high-quality</span> dataset of <em>executable</em> multi-turn trajectories to initialize the model before RL.
+          <li><strong><span class="has-text-danger has-text-weight-semibold">Stage 1: Task-aware Cold-start via Supervised Fine-tuning.</span></strong> We construct a <span class="has-text-weight-semibold">34k high-quality</span> dataset of <em>executable</em> multi-turn trajectories to initialize the model before RL.
             <ul>
               <li><span class="has-text-info has-text-weight-semibold">Weak-to-strong filtering.</span> Aggregate public datasets (e.g., SA1B, GEOqa_plus, MMK12) and apply automatic filtering. We employ a weak model (Qwen2.5-VL-7B) to prune trivial cases, while a strong model further stratifies the remaining samples into medium and hard difficulty levels.</li>
               <li><span class="has-text-info has-text-weight-semibold">Multi-turn atomic supervision.</span> We decompose hard cases into <span class="has-text-weight-semibold">verifiable executable trajectories</span> across three atomic categories:
@@ -225,7 +258,7 @@
               </li>
             </ul>
           </li>
-          <li><strong><span class="has-text-danger has-text-weight-semibold">Stage 2: Reinforcement Learning.</span></strong>
+          <li><strong><span class="has-text-danger has-text-weight-semibold">Stage 2: Difficulty-adaptive Reinforcement Learning.</span></strong>
             <div class="content has-text-justified">
               <p>
                 We optimize with a <span class="has-text-info has-text-weight-semibold">composite reward</span> that integrates outcome and tool signals. Our <span class="has-text-info has-text-weight-semibold">two-level reward (Balanced Adaptive Tool-call)</span>, denoted as \( R_{\mathrm{BAT}} \), balances task difficulty with step-wise tool-call correctness:
@@ -275,10 +308,6 @@
               </ul>
             </div>
           </li>
-          <li>
-            <strong><span class="has-text-danger has-text-weight-semibold">Stage 3: Test-Time Extend and Scaling.</span></strong> Without task-specific fine-tuning, CodeDance exhibits <span class="has-text-info has-text-weight-semibold">emergent capabilities</span> beyond supervised primitives: <span class="has-text-weight-semibold">novel tool invocations</span>, <span class="has-text-weight-semibold">unseen tool compositions</span>, and <span class="has-text-weight-semibold">cross-task transfer</span>, demonstrating strong generalization at inference.
-            We additionally validate the <span class="has-text-danger has-text-weight-semibold">potential of scalability</span> after observing the empirial novel reasoning trajecories incentivized during RL.
-          </li>
         </ul>
       </div>
       </div>
@@ -290,32 +319,7 @@
   <div class="container is-max-desktop">
     <div class="columns is-centered">
       <div class="column is-10">
-        <h2 class="title is-3 has-text-centered">&#9835; Dynamic visual tool-calling</h2>
-        <div class="content has-text-justified">
-          <p><span class="has-text-danger has-text-weight-semibold">CodeDance</span> dynamically invokes tools <span class="has-text-info has-text-weight-semibold">according to task difficulty</span> to prevent both <span class="has-text-danger has-text-weight-semibold">tool underuse</span> (unable to invoke tools on challenging tasks) and <span class="has-text-danger has-text-weight-semibold">tool overuse</span> (redundant calls on easy tasks).
-        </div>
-        <img src="./static/images/teaser1_page-0001.jpg" alt="CodeDance teaser" style="display: block; margin: 0 auto; max-width: 100%; height: auto;" /><br>
-        <table align=center width=775px>
-            <tr>
-              <td>
-                <p style="text-align:justify; text-justify:inter-ideograph;"> 
-                  <b>Motivation and effectiveness of dynamic tool invocation in CodeDance.</b> 
-                  <b>Left:</b> qualitative examples show that both tool underuse (unable to invoke tools on challenging tasks) and tool overuse (redundant calls on easy tasks) lead to hallucinated reasoning, incorrect answers, and unnecessary complexity (more reasoning turns and longer rollout time), whereas CodeDance dynamically invokes tools according to task difficulty to obtain correct solutions.
-                  <b>Right:</b> quantitative results show CodeDance-7B consistently surpasses all Qwen2.5-VL 7B baselines and <span class="has-text-danger has-text-weight-semibold">exceeds the 32B version</span> on several tasks.
-              </td>
-            </tr>
-          </center>
-        </table>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="container is-max-desktop">
-    <div class="columns is-centered">
-      <div class="column is-10">
-        <h2 class="title is-3 has-text-centered">Synthesis of <span class="has-text-danger has-text-weight-semibold">tool-integrated visual</span> trajecories</h2>
+        <h2 class="title is-3 has-text-centered">Synthesis of <span class="has-text-danger has-text-weight-semibold">tool-integrated visual</span> trajectories</h2>
         <div class="content has-text-justified">
           <p>
             To initialize CodeDance before RL, we curate a high-quality cold-start dataset of executable multimodal trajectories. Following the pipeline described in our methodology and appendix, we apply weak-to-strong filtering to stratify difficulty and then build multi-turn atomic supervision.
@@ -338,7 +342,7 @@
   <div class="container is-max-desktop">
     <div class="columns is-centered">
       <div class="column is-10">
-        <h2 class="title is-3 has-text-centered">Main Experiments</h2>
+        <h2 class="title is-3 has-text-centered"> Experiments on <span class="has-text-danger has-text-weight-semibold">General & Reasoning</span> Benchmarks</h2>
         <div class="content has-text-justified">
           <p>We conduct systematic evaluations across visual search, math, counting, and chart understanding benchmarks. CodeDance consistently outperforms text-only and schema-driven baselines and, in several settings, surpasses larger open-source and advanced closed-source models.</p>
 
@@ -382,7 +386,7 @@
                       <td colspan="8" class="has-text-centered has-text-weight-bold">Open-Source MLLMs</td>
                     </tr>
                     <tr>
-                      <td>Llava-OneVision-7B</td>
+                      <td>LLaVA-OneVision-7B</td>
                       <td>82.3</td>
                       <td>54.4</td>
                       <td>72.7</td>
@@ -392,7 +396,7 @@
                       <td>27.1</td>
                     </tr>
                     <tr>
-                      <td>Llava-OneVision-72B</td>
+                      <td>LLaVA-OneVision-72B</td>
                       <td>-</td>
                       <td>60.7</td>
                       <td>73.8</td>
@@ -476,7 +480,7 @@
                       <td>-</td>
                     </tr>
                     <tr>
-                      <td>Deepeyes-7B<sup>†</sup></td>
+                      <td>DeepEyes-7B<sup>†</sup></td>
                       <td>80.4</td>
                       <td>57.2</td>
                       <td>90.4</td>
@@ -507,7 +511,7 @@
                       <td>44.1</td>
                     </tr>
                     <tr class="has-background-light">
-                      <td><i>Δ v.s. Qwen2.5-VL-7B</i></td>
+                      <td><i>Δ vs. Qwen2.5-VL-7B</i></td>
                       <td class="has-text-success has-text-weight-bold">↑19.2%</td>
                       <td class="has-text-success has-text-weight-bold">↑53.0%</td>
                       <td class="has-text-success has-text-weight-bold">↑11.0%</td>
@@ -679,21 +683,37 @@
         <div class="content has-text-justified">
           <p>
             Throughout the RL process, we consistently observe <span class="has-text-info has-text-weight-semibold">novel and surprising reasoning trajectories</span> (below) that <span class="has-text-danger has-text-weight-semibold">go beyond the atomic supervision</span> provided during SFT. 
-            These findings point toward the <span class="has-text-danger has-text-weight-semibold">scalability</span> of code as a general reasoning medium, and we empirically study the potential in our main paper.
+            These findings point toward the <span class="has-text-danger has-text-weight-semibold">scalability</span> of code as a general reasoning medium, and we empirically study the potential in our work.
           </p>
         </div>
-        
         <img src="./static/images/emergent_behavior.jpg" alt="cold_start_dataset" />
       </div>
     </div>
   </div>
 </section>
 
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-10">
+        <h2 class="title is-3 has-text-centered">Training <span class="has-text-danger has-text-weight-semibold">scalability</span> and Test-time Scaling (TTS)</h2>
+        <div class="content has-text-justified">
+          <p>
+            <strong></strong> We show that without task-specific fine-tuning, CodeDance exhibits <span class="has-text-info has-text-weight-semibold">emergent capabilities</span> beyond supervised primitives: <span class="has-text-weight-semibold">novel tool invocations</span>, <span class="has-text-weight-semibold">unseen tool compositions</span>, and <span class="has-text-weight-semibold">cross-task transfer</span>, demonstrating strong generalization at inference.
+            <span class="has-text-danger has-text-weight-semibold">We additionally validate the potential of scalability</span> across four main dimensions: <b>(1)</b> amount of training data, <b>(2)</b> scale of the foundation model, <b>(3)</b> max test-time reasoning turns and <b>(4)</b> number of RL steps.
+          </p>
+        </div>
+        
+        <img src="./static/images/scaling.png" alt="cold_start_dataset" />
+      </div>
+    </div>
+  </div>
+</section>
 
 <!-- BibTeX citation -->
 <section class="section" id="BibTeX">
     <div class="container is-max-desktop content">
-        <h2 class="title">BibTex</h2>
+        <h2 class="title">BibTeX</h2>
         If you find our work useful and inspiring to your research, please consider citing our work:
         <pre><code>@article{Song2025codedance,
               title={CodeDance: A Dynamic Tool-integrated MLLM for Executable Visual Reasoning},
