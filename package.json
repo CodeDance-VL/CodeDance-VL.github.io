@@ -1,0 +1,16 @@
+{
+  "name": "codedance-project-page",
+  "version": "1.0.0",
+  "private": true,
+  "description": "The CodeDance research project website",
+  "scripts": {
+    "check": "html-validate index.html && python3 scripts/check_site.py",
+    "preview": "python3 -m http.server 8000 --bind 127.0.0.1"
+  },
+  "devDependencies": {
+    "html-validate": "11.17.0"
+  },
+  "engines": {
+    "node": "^22.22.0 || >=24.8.0"
+  }
+}
